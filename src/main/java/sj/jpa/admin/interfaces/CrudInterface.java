@@ -10,6 +10,6 @@ public interface CrudInterface<Request, Response> {
 
     Header<Response> update(Header<Request> request);
 
-    Header<Response> delete(Long id);
+    Header delete(Long id);
 
 }
