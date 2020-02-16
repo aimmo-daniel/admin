@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import sj.jpa.admin.model.entity.Item;
+import sj.jpa.admin.model.enumclass.ItemStatus;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -19,11 +21,11 @@ public class ItemRepositoryTest {
     @Test
     public void create() {
         Item item = Item.builder()
-                .status("UNREGISTERED")
+                .status(ItemStatus.REGISTERED)
                 .name("삼성 노트북")
                 .title("삼성 노트북 A100")
                 .content("2019년형 노트북 입니다.")
-                .price(9000000)
+                .price(BigDecimal.valueOf(9000000))
                 .brandName("삼성")
                 .registeredAt(LocalDateTime.now())
                 .createdAt(LocalDateTime.now())

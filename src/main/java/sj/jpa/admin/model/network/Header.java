@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +15,8 @@ import java.time.LocalDateTime;
 public class Header<T> {
 
     // api 통신기간
-    private LocalDateTime transactionTime;
+
+    private String transactionTime;
 
     // api 응답 코드
     private String resultCode;
@@ -27,7 +29,7 @@ public class Header<T> {
     // OK
     public static <T> Header<T> OK() {
         return (Header<T>) Header.builder()
-                .transactionTime(LocalDateTime.now())
+                .transactionTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .resultCode("OK")
                 .description("OK")
                 .build();
@@ -36,7 +38,7 @@ public class Header<T> {
     // DATA OK
     public static <T> Header<T> OK(T data) {
         return (Header<T>) Header.builder()
-                .transactionTime(LocalDateTime.now())
+                .transactionTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .resultCode("OK")
                 .description("OK")
                 .data(data)
@@ -46,7 +48,7 @@ public class Header<T> {
     // ERROR
     public static <T> Header<T> ERROR(String description) {
         return (Header<T>) Header.builder()
-                .transactionTime(LocalDateTime.now())
+                .transactionTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .resultCode("ERROR")
                 .description(description)
                 .build();

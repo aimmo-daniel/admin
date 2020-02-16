@@ -4,32 +4,35 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sj.jpa.admin.model.enumclass.UserStatus;
+import sj.jpa.admin.model.enumclass.ItemStatus;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class UserApiResponse {
+public class ItemApiResponse {
 
     private Long id;
 
-    private String account;
+    private ItemStatus status;
 
-    private String password;
+    private String name;
 
-    private UserStatus status;
+    private String title;
 
-    private String email;
+    private String content;
 
-    private String phoneNumber;
+    private BigDecimal price;
+
+    private String brandName;
 
     private LocalDateTime registeredAt;
 
     private LocalDateTime unregisteredAt;
+
+    private Long partnerId;
 
 }

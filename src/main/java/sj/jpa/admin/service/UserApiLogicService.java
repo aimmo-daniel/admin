@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sj.jpa.admin.interfaces.CrudInterface;
 import sj.jpa.admin.model.entity.User;
+import sj.jpa.admin.model.enumclass.UserStatus;
 import sj.jpa.admin.model.network.Header;
 import sj.jpa.admin.model.network.request.UserApiRequest;
 import sj.jpa.admin.model.network.response.UserApiResponse;
@@ -37,7 +38,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
         User user = User.builder()
                 .account(userApiRequest.getAccount())
                 .password(userApiRequest.getPassword())
-                .status("REGISTERED")
+                .status(userApiRequest.getStatus())
                 .phoneNumber(userApiRequest.getPhoneNumber())
                 .email(userApiRequest.getEmail())
                 .registeredAt(LocalDateTime.now())
@@ -79,23 +80,19 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
 
             return user;
         })
-                .map(user -> userRepository.save(user)) // update -> newUser
+                .map(newUser -> userRepository.save(newUser)) // update -> newUser
                 .map(updateUser -> response(updateUser))            // userApiResponse
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
     @Override
     public Header delete(Long id) {
-        // 1. id -> repository -> user
-        Optional<User> optional = userRepository.findById(id);
-
-        // 2. repository -> delete
-        return optional.map(user ->{
-            userRepository.delete(user);
-            return Header.OK();
-        })
-             .orElseGet(() -> Header.ERROR("데이터 없음"));
-
+        return userRepository.findById(id)
+                .map(user ->{
+                    userRepository.delete(user);
+                    return Header.OK();
+                })
+                .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
 
 
