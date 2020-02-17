@@ -1,5 +1,6 @@
 package sj.jpa.admin.interfaces;
 
+import org.springframework.data.domain.Pageable;
 import sj.jpa.admin.model.network.Header;
 
 public interface CrudInterface<Request, Response> {

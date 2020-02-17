@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import sj.jpa.admin.model.entity.OrderGroup;
+import sj.jpa.admin.model.enumclass.OrderType;
+import sj.jpa.admin.model.enumclass.PaymentType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,10 +22,10 @@ public class OrderGroupRepositoryTest {
     public void create() {
         OrderGroup orderGroup = OrderGroup.builder()
                 .status("COMPLETE")
-                .orderType("ALL")
+                .orderType(OrderType.ALL)
                 .revAddress("서울시 강남구")
                 .revName("홍길동")
-                .paymentType("CARD")
+                .paymentType(PaymentType.CARD)
                 .totalPrice(BigDecimal.valueOf(900000))
                 .totalQuantity(1)
                 .orderAt(LocalDateTime.now().minusDays(2))
